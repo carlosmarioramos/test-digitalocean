@@ -1,24 +1,28 @@
 const express = require('express')
 const path = require('path')
-require('dotenv').config({
-  path: path.resolve(__dirname, `../.env.${process.env.NODE_ENV}`)
-})
 
 // inicializations
 const app = express()
-
-// routes
-const apiRoutes = require('./routes/api.routes')
+require('dotenv').config({
+  path: path.resolve(process.cwd(), `.env.${process.env.NODE_ENV}`)
+})
 
 // settings
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT)
 
 // middlewares
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
+
 // routes
-app.use(apiRoutes)
+app.get('/', (req, res) => {
+  res.json({
+    message: `Estoy en modo ${process.env.ENV}`,
+    env: process.env.NODE_ENV
+  })
+})
+
 
 app.listen(app.get('port'), () => {
   console.log(`Server running on port ${app.get('port')}`)
