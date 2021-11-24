@@ -19,7 +19,8 @@ app.use(express.json())
 app.get('/', (req, res) => {
   res.json({
     message: `Estoy en modo ${process.env.ENV}`,
-    env: process.env.NODE_ENV
+    env: process.env.NODE_ENV,
+    port: process.env.PORT
   })
 })
 
