@@ -8,7 +8,7 @@ require('dotenv').config({
 })
 
 // settings
-app.set('port', process.env.PORT)
+app.set('port', process.env.PORT || 5000)
 
 // middlewares
 app.use(express.urlencoded({ extended: false }))
@@ -18,12 +18,11 @@ app.use(express.json())
 // routes
 app.get('/', (req, res) => {
   res.json({
-    message: `Estoy en modo ${process.env.ENV}`,
-    env: process.env.NODE_ENV,
+    msg: process.env.MSG,
+    NODE_ENV: process.env.NODE_ENV,
     port: process.env.PORT
   })
 })
-
 
 app.listen(app.get('port'), () => {
   console.log(`Server running on port ${app.get('port')}`)
